@@ -1,7 +1,7 @@
 from funciones import mismoGenero
 # Madlibpy es un juego en el que se introducen unas palabras (nombres, adjetivos y verbos)
 # y se genera una historia aleatoria.
-# El juego recogera X nombres, X adejetivos y X verbos.
+# El juego recogera X nombres, X adjetivos y X verbos.
 
 print("***************************************************************")
 print("**      MadLibPY!!        version 0.1      by Espar          **")
@@ -13,34 +13,63 @@ print(" ")
 # Primera parte, recogemos los datos, del usuario y del archivo de texto donde estara la historia ('historia')
 # Generamos 3 listas: nombres, adejetivos y verbos.
 
-PALABRAS = 10
+PALABRAS = 5
 
 nombres = []
 adjetivos = list()
 verbos =[]
 
-print(f"Introduce {PALABRAS} nombres para el juego!") 
+# se recoge las palabras y se guardan en listas
+print(f"Introduce como minimo {PALABRAS*2} nombres para el juego!") 
 nombre = input()
 nombres = nombre.split()
+lenNom = len(nombres)
+# si el numero de palabras es menor, se pediran que se completen las que faltan:
+while (lenNom < PALABRAS*2):
+    nombre = ""
+    print(f"Faltan {PALABRAS*2 -lenNom} nombres")
+    nombre = input()
+    for palabra in nombre.split():
+        nombres.append(palabra)
+    lenNom = len(nombres)
+print(nombres)
 
-print(f"Introduce {PALABRAS} adjetivos para el juego!") 
+print(f"Introduce como minimo {PALABRAS*2} adjetivos para el juego!") 
 adjetivo = input()
 adjetivos = adjetivo.split()
+lenAdj = len(adjetivos)
 
-print(f"Introduce {PALABRAS} verbos para el juego!:")
+while (lenAdj < PALABRAS*2):
+    adjetivo = ""
+    print(f"Faltan {PALABRAS*2 -lenAdj} adjetivos")
+    adjetivo = input()
+    for palabra in adjetivo.split():
+        adjetivos.append(palabra)
+    lenAdj = len(adjetivos)
+print(adjetivos)
+
+print(f"Introduce como minimo {PALABRAS} verbos para el juego!:")
 verbo = input()
 verbos = verbo.split()
-    
-# si el numero de palabras es menor, se reutilizaran las que se han proporcionado, si es mayor se escogeran 
-# aleatoriamente 10 de las suministradas.
-
-print(nombres)
-print(adjetivos)
+lenVerb = len(verbos)
+   
+while (lenVerb < PALABRAS):
+    verbo = ""
+    print(f"Faltan {PALABRAS*2 -lenVerb} verbos")
+    verbo = input()
+    for palabra in verbo.split():
+        verbos.append(palabra)
+    lenVerb = len(verbos)
 print(verbos)
 
-# prueba del cambio de genero:
-print (nombres[0])
-print (adjetivos[0])
+# se carga la historia (extraida desde el archivo historia)
+try:
+    file = open("historia.txt", 'r')
+except:
+    print('Error opening "historia" file')
 
-cambio = mismoGenero(nombres[0], adjetivos[0])
-print (cambio)
+# En el archivo hay dos marcas distintivas en las que se añadiran las palabras:
+# <na> aqui ira un nombre + adjetivo con un pronombre determinante al principio
+# <v> aqui se introduce un verbo
+
+
