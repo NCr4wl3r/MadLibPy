@@ -11,28 +11,26 @@ def mismoGenero(nom, adj):
     # si el nombre es masculino y el adjetivo es femenino(acabado en a)
     if (nombre[-1] == "o") or (nombre[-1] == 'e') and (adjetivo[-1] == 'a'):
         adjetivo = adjetivo.replace(adjetivo[-1], "o")
-        print('cambio a o')
     
     # de lo contrario si el nombre es femenino y el adjetivo masculino 
     elif (nombre[-1] == 'a') and (adjetivo[-1] == 'o'):    
         adjetivo = adjetivo.replace(adjetivo[-1], "a")
-        print('cambio a a')
 
     return adjetivo  
 
 def determinante (palabra):
-    if (palabra[-1] == "o" or (palabra[-1] == "e"):
+    if (palabra[-1] == "o") or (palabra[-1] == "e"):
         return "el"
     elif (palabra[-1] == "a"):
         return "la"
     else:
-        pass
+        return "lo"
 
 def rellenar(nomList, adjList, verbList, hist):
     nombres = nomList
     adjetivos = adjList
     verbos = verbList
-    historia = hist
+    historia = ""
     
     # shuffle the three list:
     random.shuffle(nombres)
@@ -41,16 +39,21 @@ def rellenar(nomList, adjList, verbList, hist):
 
     # loop por toda la historia buscando las marcas <na> y <v> para rellenarla con 
     # los nombres, adjetivos y verbos.
-    for palabra in historia:
-        if palabra == '<na>':
+    for palabra in hist.split():
+        if '<na>' in palabra:
             # coge aleatoriamente un nombre y adjetivo
             nombre = nombres.pop(0)
             adjetivo = mismoGenero(nombre, adjetivos.pop(0))
             det = determinante(nombre)
-
-
-           pass
-    pass
+            grupo = det + " " + nombre + " " + adjetivo
+            palabra = palabra.replace('<na>', grupo)
+        elif '<v>' in palabra:
+            palabra = palabra.replace('<v>', verbos.pop(0))
+        
+        print(palabra)
+        historia = historia + palabra + " "
+    
+    return(historia)
 
 # recoge una lista de palabras con un minimo especificado
 def entradaDatos (cantidad):

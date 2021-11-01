@@ -1,4 +1,4 @@
-from funciones import mismoGenero, entradaDatos
+from funciones import mismoGenero, entradaDatos, rellenar
 # Madlibpy es un juego en el que se introducen unas palabras (nombres, adjetivos y verbos)
 # y se genera una historia aleatoria.
 # El juego recogera X nombres, X adjetivos y X verbos.
@@ -30,13 +30,13 @@ print(f"Introduce como minimo {PALABRAS} verbos para el juego!:")
 verbos = entradaDatos(PALABRAS)
 
 # se carga la historia (extraida desde el archivo historia)
-try:
-    file = open("historia.txt", 'r')
-except:
-    print('Error opening "historia" file')
+
+with open("historia.txt", 'r') as file:
+    data = file.read()
+    print(rellenar(nombres, adjetivos, verbos, data))
 
 # En el archivo hay dos marcas distintivas en las que se añadiran las palabras:
 # <na> aqui ira un nombre + adjetivo con un pronombre determinante al principio
 # <v> aqui se introduce un verbo
 
-
+    
