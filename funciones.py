@@ -1,3 +1,5 @@
+import random
+
 # Funcion cambio genero. Introduce el nombre y adjetivo y los intenta adecuar al genero correcto.
 # si el nombre acaba en O o E y el adjetivo acaba en A, le cambia la terminacion a una O.
 # Si el nombre acaba en A, y el adjetivo acaba en O, le cambia la terminacion.
@@ -18,16 +20,49 @@ def mismoGenero(nom, adj):
 
     return adjetivo  
 
+def determinante (palabra):
+    if (palabra[-1] == "o" or (palabra[-1] == "e"):
+        return "el"
+    elif (palabra[-1] == "a"):
+        return "la"
+    else:
+        pass
+
 def rellenar(nomList, adjList, verbList, hist):
     nombres = nomList
     adjetivos = adjList
     verbos = verbList
     historia = hist
+    
+    # shuffle the three list:
+    random.shuffle(nombres)
+    random.shuffle(adjetivos)
+    random.shuffle(verbos)
 
     # loop por toda la historia buscando las marcas <na> y <v> para rellenarla con 
     # los nombres, adjetivos y verbos.
     for palabra in historia:
         if palabra == '<na>':
+            # coge aleatoriamente un nombre y adjetivo
+            nombre = nombres.pop(0)
+            adjetivo = mismoGenero(nombre, adjetivos.pop(0))
+            det = determinante(nombre)
 
-    
+
+           pass
     pass
+
+# recoge una lista de palabras con un minimo especificado
+def entradaDatos (cantidad):
+    palabras = input()
+    lstPalabras = palabras.split()
+    lenPalabras = len(lstPalabras)
+    # si el numero introducido es inferior a la cantidad deseada, se pedira que completen el resto 
+    while (lenPalabras < cantidad):
+        palabras = ""
+        print(f'Faltan {cantidad - lenPalabras}')
+        palabras = input()
+        for palabra in palabras.split():
+            lstPalabras.append(palabra)
+        lenPalabras = len(lstPalabras)
+    return lstPalabras
