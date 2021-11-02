@@ -24,7 +24,7 @@ def determinante (palabra):
     elif (palabra[-1] == "a"):
         return "la"
     else:
-        return "lo"
+        return "el"
 
 def rellenar(nomList, adjList, verbList, hist):
     nombres = nomList
