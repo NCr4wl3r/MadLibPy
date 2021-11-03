@@ -41,7 +41,7 @@ def rellenar(nomList, adjList, verbList, hist):
     # los nombres, adjetivos y verbos.
     for palabra in hist.split():
         if '<na>' in palabra:
-            # coge aleatoriamente un nombre y adjetivo
+            # coge el primer nombre y adjetivo de la lista barajada
             nombre = nombres.pop(0)
             adjetivo = mismoGenero(nombre, adjetivos.pop(0))
             det = determinante(nombre)
@@ -57,15 +57,26 @@ def rellenar(nomList, adjList, verbList, hist):
 
 # recoge una lista de palabras con un minimo especificado
 def entradaDatos (cantidad):
-    palabras = input()
-    lstPalabras = palabras.split()
+    lstPalabras = list()
     lenPalabras = len(lstPalabras)
+    
     # si el numero introducido es inferior a la cantidad deseada, se pedira que completen el resto 
     while (lenPalabras < cantidad):
-        palabras = ""
-        print(f'Faltan {cantidad - lenPalabras}')
         palabras = input()
-        for palabra in palabras.split():
-            lstPalabras.append(palabra)
-        lenPalabras = len(lstPalabras)
+        spltPalabras = palabras.split()
+        
+        print (spltPalabras)
+        # se comprueba si lo introducido son letras, de lo contrario el break hacer que se reinicie el loop
+        # Si es correcto, guarda la palabra en la lista, y continua
+        for palabra in spltPalabras:
+            if not palabra.isalpha():
+                print('Solo valen palabras!')
+                break
+            else:
+                lstPalabras.append(palabra)
+                lenPalabras = len(lstPalabras)
+            
+        if (lenPalabras < cantidad):
+                print(f'Faltan {cantidad - lenPalabras}')
+
     return lstPalabras
